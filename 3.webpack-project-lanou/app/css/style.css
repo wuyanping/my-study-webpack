@@ -1,0 +1,7 @@
+@color:pink;
+body{
+	background: @color;
+	h1{
+		color:yellow;
+	}
+}
