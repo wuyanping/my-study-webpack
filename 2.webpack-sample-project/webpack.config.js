@@ -1,4 +1,5 @@
 const webpack = require('webpack')
+const htmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
 
 	// 只应该开发阶段使用它
@@ -9,7 +10,7 @@ module.exports = {
 	output: {
 
 		//打包后的文件存放的地方
-		path: __dirname + '/public',
+		path: __dirname + '/bulid',
 
 		//打包后输出文件的文件名
 		filename: 'bundle.js'
@@ -26,7 +27,9 @@ module.exports = {
 		// 当源文件改变时会自动刷新页面
 		inline: true,
 
-		port: 8088
+		port: 8088,
+
+        hot: true
 	},
 
 	module: {
@@ -84,7 +87,19 @@ module.exports = {
 	},
 
 	plugins: [
-		new webpack.BannerPlugin("吴燕萍学习webpack的例子！")
+
+        // 给打包后代码添加文本插件。
+		new webpack.BannerPlugin("吴燕萍学习webpack的例子！"),
+
+        // 依据一个简单的index.html模板，生成一个自动引用你打包后的JS文件的新index.html
+        new htmlWebpackPlugin({
+            template: __dirname + '/app/index.tmpl.html'
+        }),
+
+        // 它允许你在修改组件代码后，自动刷新实时预览修改后的效果
+        // 1. 在webpack配置文件中添加HMR插件；
+        // 2. 在Webpack Dev Server中添加“hot”参数；
+        new webpack.HotModuleReplacementPlugin()
 	]
 
 }
