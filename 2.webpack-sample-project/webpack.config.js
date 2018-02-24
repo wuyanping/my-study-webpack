@@ -5,7 +5,10 @@ module.exports = {
 	// 只应该开发阶段使用它
 	devtool: 'eval-source-map',
 
-	entry: __dirname + '/app/main.js',
+	entry: {
+        bundle: __dirname + '/app/main.js',
+        vendor: ['react']
+    },
 
 	output: {
 
@@ -13,7 +16,8 @@ module.exports = {
 		path: __dirname + '/bulid',
 
 		//打包后输出文件的文件名
-		filename: 'bundle.js'
+		// filename: 'bundle.js'
+        filename: '[name].js'
 	},
 
 	devServer: {
@@ -87,6 +91,8 @@ module.exports = {
 	},
 
 	plugins: [
+        // new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js'),
+        new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.bundle.js' }),
 
         // 给打包后代码添加文本插件。
 		new webpack.BannerPlugin("吴燕萍学习webpack的例子！"),

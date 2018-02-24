@@ -7,8 +7,6 @@ var html = require("html-webpack-plugin")
 //删除文件
 var clean = require('clean-webpack-plugin');
 
-
-
 var webpack = require("webpack");
 module.exports = {
 	// entry:"./app/app.js",//入口
@@ -21,12 +19,13 @@ module.exports = {
 		filename:"js/[name].js"
 	},
 	plugins:[//插件
+		// 提取公共部分
 		new webpack.optimize.CommonsChunkPlugin({
 			name:"common"
 		}),
 		new E({
-			filename:"css/style.css",
-			allChunks:true//合并所有样式文件
+			filename:"css/[name].css",
+			allChunks: true//合并所有样式文件
 		}),
 		new clean(["www"]),
 		new html({

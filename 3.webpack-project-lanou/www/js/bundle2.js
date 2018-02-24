@@ -1,6 +1,14 @@
+webpackJsonp([1],{
+
+/***/ 32:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 // require("./css/style.css")
-require("style/cs")
-var hello = require("./js/hello.js");
+__webpack_require__(33);
+var hello = __webpack_require__(14);
 hello();
 
 // var img1 = new Image();
@@ -25,8 +33,13 @@ hello();
 
 // ReactDOM.render(<Hello/>,document.getElementById('app'))
 
+/***/ }),
 
+/***/ 33:
+/***/ (function(module, exports) {
 
+// removed by extract-text-webpack-plugin
 
+/***/ })
 
-
+},[32]);
