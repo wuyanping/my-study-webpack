@@ -91,7 +91,11 @@ module.exports = {
 	},
 
 	plugins: [
-        // new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js'),
+        // 提取公共部分
+        // new webpack.optimize.CommonsChunkPlugin({
+        //     name:"common"
+        // }),
+        // 提取第三方插件
         new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.bundle.js' }),
 
         // 给打包后代码添加文本插件。

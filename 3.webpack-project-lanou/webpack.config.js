@@ -12,34 +12,44 @@ module.exports = {
 	// entry:"./app/app.js",//入口
 	entry:{//多个入口文件
 		bundle:"./app/app.js",
-		bundle2:"./app/app2.js",
+		// bundle2:"./app/app2.js",
+		vendor: ['react', 'react-dom']
 	},
 	output:{//输出
 		path:__dirname+"/www",
+		// filename:"js/[name].[chunkhash].js"
+		// filename:"js/[name].[hash].js"
 		filename:"js/[name].js"
 	},
 	plugins:[//插件
 		// 提取公共部分
 		new webpack.optimize.CommonsChunkPlugin({
-			name:"common"
+			name:"vendor"
+			// names: ['vendor', 'manifest']
 		}),
 		new E({
 			filename:"css/[name].css",
-			allChunks: true//合并所有样式文件
+			// filename:"css/style.css",
+			// allChunks: true,//合并所有样式文件
+			// disabled: true
 		}),
 		new clean(["www"]),
 		new html({
 			title:"首页",
 			template:__dirname+"/app/index.html",
 			filename:"index.html",
-			chunks:["common",'bundle']
+			chunks:["vendor",'bundle']
 		}),
 		//设置全局变量
 		new webpack.ProvidePlugin({
             React: 'react',
             ReactDOM: 'react-dom'
-        })//直接加载到全局不需要require()
+        }),//直接加载到全局不需要require()
 		// new webpack.optimize.UglifyJsPlugin()//压缩代码
+		
+		// 模块热替换
+		new webpack.NamedModulesPlugin(),
+    	new webpack.HotModuleReplacementPlugin()
 	],
 	module:{//配置打包所需要用到的模块
 		loaders:[
@@ -66,8 +76,10 @@ module.exports = {
 	// webpack-dev-server
 	devServer: {
 	  contentBase:"./www",
-      inline: true,
-      port: 8088
+      // inline: true, //一有文件更改就刷新浏览器
+      port: 8088,
+      open: true,
+      hot: true
     },
 	resolve:{           
         // root: __dirname+'/app/js',//require查找module的话从这里开始查找            

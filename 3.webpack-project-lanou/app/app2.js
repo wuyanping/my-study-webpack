@@ -1,7 +1,7 @@
 // require("./css/style.css")
-require("style/cs")
-var hello = require("./js/hello.js");
-hello();
+// require("style/cs")
+// var hello = require("./js/hello.js");
+// hello();
 
 // var img1 = new Image();
 // img1.src = require("./images/3d2.jpg");
@@ -21,9 +21,9 @@ hello();
 
 // // import React from 'react';
 // // import ReactDOM from 'react-dom';
-// import Hello from './js/hello';
+import Cs from './js/cs';
 
-// ReactDOM.render(<Hello/>,document.getElementById('app'))
+ReactDOM.render(<Cs/>,document.getElementById('app'))
 
 
 

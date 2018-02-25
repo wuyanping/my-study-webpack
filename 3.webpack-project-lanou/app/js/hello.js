@@ -23,6 +23,6 @@
 // var {Component} = React;
 export default class Hello extends React.Component{
 	render(){
-		return <h1>aahello world! haha adfasd</h1>
+		return <h1>hfae ddworld! haha adfasd</h1>
 	}
 }
