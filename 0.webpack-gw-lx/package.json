@@ -10,7 +10,11 @@
     "start": "webpack-dev-server --open",
     "server": "node server.js",
     "dev": "webpack-dev-server --open --config webpack.dev.js",
-    "prod": "webpack --config webpack.prod.js"
+    "prod": "webpack --config webpack.prod.js",
+    "lanjiazai": "webpack-dev-server --open --config ./lanjiazai/webpack.config.js",
+    "lanjiazaiBuild": "webpack --config ./lanjiazai/webpack.config.js",
+    "huancun": "webpack-dev-server --open --config ./huancun/webpack.config.js",
+    "huancunBuild": "webpack --config ./huancun/webpack.config.js"
   },
   "author": "",
   "license": "ISC",
@@ -38,6 +42,8 @@
     "sass": "^1.0.0-beta.5.2",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.20.2",
+    "ts-loader": "^4.0.0",
+    "typescript": "^2.7.2",
     "uglifyjs-webpack-plugin": "^1.2.2",
     "webpack": "^3.11.0",
     "webpack-cli": "^2.0.9",

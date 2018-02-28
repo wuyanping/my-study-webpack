@@ -1,3 +1,5 @@
+// 使用环境变量配置
+
 const path = require('path')
 // "start": "webpack --env.prod"
 // const config = env => {
