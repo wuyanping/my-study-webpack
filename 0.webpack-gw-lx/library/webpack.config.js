@@ -1,41 +1,19 @@
-const path = require('path');
-const webpack = require('webpack');
-// 清理 /dist 文件夹
-const CleanWebpackPlugin = require('clean-webpack-plugin')
-// 生成html文件
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+var path = require('path');
+
 module.exports = {
-  entry:  {
-    main: './huancun/index.js',
-    vendor: ['lodash']
-  },
+  entry: './library/index.js',
 
   output: {
-    filename: '[name].[chunkhash].js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'webpack-numbers.js'
   },
 
-  plugins: [
-    new CleanWebpackPlugin(['dist']),
-
-		new HtmlWebpackPlugin({
-      title: 'Caching',
-			template:__dirname+"/../index.html",
-			filename:"index.html",
-			// chunks:["vendor",'react1']
-    }),
-
-    // 而 vendor 的 hash 发生变化是我们要修复的。幸运的是，可以使用两个插件来解决这个问题。
-    // webpack.NamedModulesPlugin，webpack.HashedModuleIdsPlugin
-    new webpack.HashedModuleIdsPlugin(),
-
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor'
-    }),
-
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'manifest'
-    })
-
-  ]
+  externals: {
+    lodash: {
+      commonjs: 'lodash',
+      commonjs2: 'lodash',
+      amd: 'lodash',
+      root: '_'
+    }
+  }
 };
