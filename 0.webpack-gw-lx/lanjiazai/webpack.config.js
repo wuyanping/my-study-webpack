@@ -10,9 +10,9 @@ module.exports = {
     path: path.resolve(__dirname, 'dist')
   },
   plugins: [
-    	new CleanWebpackPlugin(['dist']),
+    new CleanWebpackPlugin(['dist']),
 		new HtmlWebpackPlugin({
-            title:"首页",
+      title:"首页",
 			template:__dirname+"/../index.html",
 			filename:"index.html",
 			// chunks:["vendor",'react1']
