@@ -13,7 +13,7 @@
 // Vue.component(Select.name, Select);
 
 import * as elementComponent from './element-ui.js'
-import 'SASS'
+import 'SASS/index'
 
 // 设置语言
 import enLocale from 'element-ui/lib/locale/lang/en'

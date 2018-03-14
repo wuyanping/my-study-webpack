@@ -17,7 +17,7 @@ module.exports = {
 
     // entry: './src/index.js',
     entry: {
-    	// app: './src/index.js',
+    	app: './src/index.js',
     	// print: './src/print.js',
     	// another: './src/another-module.js'
     	// reactMain: './src/reactMain.js',
@@ -25,8 +25,8 @@ module.exports = {
     	// reactCommon: ['react'],
     	// reactdomCommon: ['react-dom'],
     	// vendor: ['./src/react1.js', './src/react2.js']
-    	react1: './src/react1.js',
-    	react2: './src/react2.js',
+    	// react1: './src/react1.js',
+    	// react2: './src/react2.js',
     	// react3: './src/react3.js',
     	vendor: ['react', 'react-dom', 'jquery']
     },

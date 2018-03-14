@@ -42,6 +42,11 @@ export default [
 						src: '/lx2-2'
 					}
 				]
+			},
+			{
+				name: '练习3',
+				key: 'lx3',
+				src: '/lx3'
 			}
 		]
 	},
@@ -49,5 +54,5 @@ export default [
 		name: '我的个人信息',
 		key: 'info',
 		src: '/info'
-	},
+	}
 ]

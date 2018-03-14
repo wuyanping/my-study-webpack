@@ -1,3 +1,8 @@
+.className{
+   display: flex;
+   transform: rotate(45deg);
+   color: pink;
+}
 @import './_variables';
 @import './_function';
 @import './_mixins';

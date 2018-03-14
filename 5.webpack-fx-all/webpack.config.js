@@ -13,13 +13,13 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 // const dqPath = path.resolve(__dirname, 'src')
 
+const vueConfig = require('./vue-loader.config')
+
 function resolve (dir) {
   return path.join(__dirname, dir)
 }
 
 let config = {
-	// JavaScript 提供了 source map 功能，将编译后的代码映射回原始源代码
-	devtool: "inline-source-map",
 
     // entry: './css/index.js',
     entry: {
@@ -29,7 +29,7 @@ let config = {
 
     output: {
       // filename: 'bundle.js',
-      filename: '[name].[hash].js',
+      filename: '[name].js',
       path: resolve('dist'),
       // publicPath: '/'
     },
@@ -48,7 +48,7 @@ let config = {
         }),
         new webpack.NamedModulesPlugin(),
 		// new ExtractTextPlugin("css/[name].[hash]css"),
-        new ExtractTextPlugin({filename:'[name].[hash].css', allChunks: true}),   // 
+        new ExtractTextPlugin({filename:'[name].css', allChunks: true, disabled: true}),   // 
 
 		// 防止重复,提取公共模块
 		new webpack.optimize.CommonsChunkPlugin({
@@ -70,31 +70,40 @@ let config = {
 
     module: {
     	rules: [
+            // {
+            //     test：用于匹配处理文件的扩展名的表达式，这个选项是必须进行配置的；
+            //     use：loader名称，就是你要使用模块的名称，这个选项也必须进行配置，否则报错；
+            //     include/exclude:手动添加必须处理的文件（文件夹）或屏蔽不需要处理的文件（文件夹）（可选）；
+            //     query：为loaders提供额外的设置选项（可选）。
+            // },
     		{
     			test: /\.css$/,
-    			// use: ['style-loader', 'css-loader']
+    			// use: ['style-loader!css-loader!postcss-loader']
     			use: ExtractTextPlugin.extract({
     				fallback: 'style-loader',
-    				use: "css-loader"
+    				use: ["css-loader?importLoaders=1", 'postcss-loader']
     			})
     		},
     		{
 		        test: /\.less$/i,
+                // use: ['style-loader?importLoaders=1!css-loader!less-loader!postcss-loader']
 		        use: ExtractTextPlugin.extract({
     				fallback: 'style-loader',
-    				use: [ 'css-loader', 'less-loader' ]
+    				use: [ 'css-loader?importLoaders=1', 'less-loader', 'postcss-loader' ]
     			})
 		    },
 		    {
 		        test: /\.scss$/i,
+                // use: ['style-loader?importLoaders=1!css-loader!sass-loader!postcss-loader']
 		        use: ExtractTextPlugin.extract({
     				fallback: 'style-loader',
-    				use: [ 'css-loader', 'sass-loader' ]
+    				use: [ 'css-loader?importLoaders=1', 'sass-loader', 'postcss-loader']
     			})
 		    },
 		    {
                 test: /\.vue$/,
-                loader: 'vue-loader'
+                loader: 'vue-loader',
+                options: vueConfig
             },
             {
                 test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
@@ -153,17 +162,21 @@ let config = {
 
 if (process.env.NODE_ENV === 'dev') {
     config = merge(config, {
+        // JavaScript 提供了 source map 功能，将编译后的代码映射回原始源代码
+        devtool: "inline-source-map",
+
         plugins: [
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV': JSON.stringify('dev')
             }),
             new webpack.HotModuleReplacementPlugin()
         ],
+
         devServer: {
             contentBase: './dist',
+            historyApiFallback: true,
             hot: true,
-            // historyApiFallback: true,
-            // inline: true,
+            inline: true
             // proxy: {
             //     '/**': {
             //         changeOrigin: true,
@@ -174,25 +187,25 @@ if (process.env.NODE_ENV === 'dev') {
         }
     })
 } else {
-    const CompressionWebpackPlugin = require('compression-webpack-plugin')
-    config = merge(config, {
-        plugins: [
-            // minify JS
-            // new webpack.optimize.UglifyJsPlugin({
-            //     compress: {
-            //         warnings: false
-            //     }
-            // }),
-            new UglifyJSPlugin(),
-            new CompressionWebpackPlugin({
-                asset: '[path].gz[query]',
-                algorithm: 'gzip',
-                test: /\.js$|\.css$|\.html$/,
-                threshold: 10240,
-                minRatio: 0.8
-            })
-        ]
-    })
+    // const CompressionWebpackPlugin = require('compression-webpack-plugin')
+    // config = merge(config, {
+    //     plugins: [
+    //         // minify JS
+    //         // new webpack.optimize.UglifyJsPlugin({
+    //         //     compress: {
+    //         //         warnings: false
+    //         //     }
+    //         // }),
+    //         new UglifyJSPlugin(),
+    //         new CompressionWebpackPlugin({
+    //             asset: '[path].gz[query]',
+    //             algorithm: 'gzip',
+    //             test: /\.js$|\.css$|\.html$/,
+    //             threshold: 10240,
+    //             minRatio: 0.8
+    //         })
+    //     ]
+    // })
 }
 
 module.exports = config
